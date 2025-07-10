@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Methods | Report</title>
+  <meta name="description" content="Chapter 2 Methods | Report" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Methods | Report" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Methods | Report" />
+  
+  
+  
+
+<meta name="author" content="Jiayi and Louise" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="simulation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns-1.13.4/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns-1.13.4/js/dataTables.fixedColumns.min.js"></script>
+<link href="libs/dt-ext-fixedheader-1.13.4/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedheader-1.13.4/js/dataTables.fixedHeader.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>2</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cross.html"><a href="cross.html#mark-recapture"><i class="fa fa-check"></i><b>2.1</b> Mark-Recapture</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="cross.html"><a href="cross.html#closed-populations"><i class="fa fa-check"></i><b>2.1.1</b> Closed populations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="cross.html"><a href="cross.html#distance-sampling"><i class="fa fa-check"></i><b>2.2</b> Distance Sampling</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="cross.html"><a href="cross.html#line-transect-sampling"><i class="fa fa-check"></i><b>2.2.1</b> Line transect sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="cross.html"><a href="cross.html#mrds"><i class="fa fa-check"></i><b>2.3</b> MRDS</a></li>
+<li class="chapter" data-level="2.4" data-path="cross.html"><a href="cross.html#d-distance"><i class="fa fa-check"></i><b>2.4</b> 2D Distance</a></li>
+<li class="chapter" data-level="2.5" data-path="cross.html"><a href="cross.html#further-reading"><i class="fa fa-check"></i><b>2.5</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>3</b> Simulation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simulation.html"><a href="simulation.html#simulation-scenarios"><i class="fa fa-check"></i><b>3.1</b> Simulation scenarios</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="simulation.html"><a href="simulation.html#initial-perpendicular-distance-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Initial perpendicular distance distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simulation.html"><a href="simulation.html#movement-after-first-detection"><i class="fa fa-check"></i><b>3.1.2</b> Movement after first detection</a></li>
+<li class="chapter" data-level="3.1.3" data-path="simulation.html"><a href="simulation.html#imperfect-matching"><i class="fa fa-check"></i><b>3.1.3</b> Imperfect Matching</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="simulation.html"><a href="simulation.html#simulation-results"><i class="fa fa-check"></i><b>3.2</b> Simulation Results</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulation.html"><a href="simulation.html#uniform-animal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Uniform Animal Distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simulation.html"><a href="simulation.html#avoiding-transect"><i class="fa fa-check"></i><b>3.2.2</b> Avoiding Transect</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simulation.html"><a href="simulation.html#attracted-to-transect"><i class="fa fa-check"></i><b>3.2.3</b> Attracted to Transect</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simulation.html"><a href="simulation.html#conclusions"><i class="fa fa-check"></i><b>3.3</b> Conclusions</a></li>
+<li class="chapter" data-level="3.4" data-path="simulation.html"><a href="simulation.html#further-reading-1"><i class="fa fa-check"></i><b>3.4</b> Further Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="real-data.html"><a href="real-data.html"><i class="fa fa-check"></i><b>4</b> Real Data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="real-data.html"><a href="real-data.html#mark-recapture-1"><i class="fa fa-check"></i><b>4.1</b> Mark Recapture</a></li>
+<li class="chapter" data-level="4.2" data-path="real-data.html"><a href="real-data.html#conventional-distance-sampling"><i class="fa fa-check"></i><b>4.2</b> Conventional Distance Sampling</a></li>
+<li class="chapter" data-level="4.3" data-path="real-data.html"><a href="real-data.html#d-distance-sampling"><i class="fa fa-check"></i><b>4.3</b> 2D Distance Sampling</a></li>
+<li class="chapter" data-level="4.4" data-path="real-data.html"><a href="real-data.html#summary"><i class="fa fa-check"></i><b>4.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="appendix-code-guide.html"><a href="appendix-code-guide.html"><i class="fa fa-check"></i><b>5</b> Appendix: Code Guide</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="appendix-code-guide.html"><a href="appendix-code-guide.html#summary-1"><i class="fa fa-check"></i><b>5.1</b> Summary</a></li>
+<li class="chapter" data-level="5.2" data-path="simulation.html"><a href="simulation.html#simulation"><i class="fa fa-check"></i><b>5.2</b> Simulation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="appendix-code-guide.html"><a href="appendix-code-guide.html#sim.data"><i class="fa fa-check"></i><b>5.2.1</b> Simulating the Data using sim.data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="appendix-code-guide.html"><a href="appendix-code-guide.html#sim.mismatch"><i class="fa fa-check"></i><b>5.2.2</b> Imperfect Matching</a></li>
+<li class="chapter" data-level="5.2.3" data-path="appendix-code-guide.html"><a href="appendix-code-guide.html#result"><i class="fa fa-check"></i><b>5.2.3</b> Getting the results</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Report</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cross" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Methods<a href="cross.html#cross" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="mark-recapture" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Mark-Recapture<a href="cross.html#mark-recapture" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mark-recapture is a powerful technique used in ecology and wildlife biology to estimate the population size of a specific animal or species within a given area. This method is based on the concept of sampling, marking, and then recapturing individuals from the target population. By utilizing this approach, researchers can extrapolate the population size and gain valuable insights into population dynamics, species abundance, and conservation efforts.</p>
+<p>The fundamental principle behind mark-recapture lies in the idea that the probability of capturing an individual within the population is the same for each capture event. Once an individual is captured, it is marked in some way, making it distinguishable from other members of the population. The marked individuals are then released back into the wild, allowing them to mix freely with the unmarked individuals. Subsequently, during the recapture phase, researchers perform another sampling effort, capturing a new group of individuals from the population. The proportion of marked individuals in the recaptured sample allows scientists to estimate the total population size based on the assumption of a closed population.</p>
+<div id="closed-populations" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Closed populations<a href="cross.html#closed-populations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Lincoln-Peterson MR estimator is one of the most classic and widely used methods for estimating the population size of closed populations. Proposed independently by Peterson in the 1890s and by Lincoln in the 1920s, this estimator relies on two sampling events: the initial capture, where a subset of the population is marked, and the subsequent recapture, where the marked individuals are identified among the newly captured individuals.</p>
+<p>The Chapman mark-recapture estimator is a modified version of the traditional Lincoln-Peterson estimator with less bias and is less affected by zeros.</p>
+<p><strong><em>Chapman MR estimator (1951)</em></strong> <span class="math display">\[\hat{N}_{CPM} = \frac{(n_{1} + 1)(n_{2} + 1)}{m_{2}+1}-1\]</span></p>
+<p><em>where:</em></p>
+<ul>
+<li><p><span class="math inline">\(\hat{N}_{CPM}\)</span> <em>is the estimated population size.</em></p></li>
+<li><p><span class="math inline">\(n_{1}\)</span> <em>is the number of individuals captured and marked in the first occasion.</em></p></li>
+<li><p><span class="math inline">\(n_{2}\)</span> <em>is the number of marked individuals recaptured in the second occasion.</em></p></li>
+<li><p><span class="math inline">\(m_{2}\)</span> <em>is the number of recaptured individuals that were already marked in the first occasion.</em></p></li>
+</ul>
+<p>The accuracy of this estimate relies on a number of assumptions being met.</p>
+<blockquote>
+<p><strong>Assumption 1.</strong> The population is closed to additions and deletions;</p>
+</blockquote>
+<p>In other words, no individuals are added to or removed from the population through birth, death, immigration, or emigration during the study period. An exception is when there are equal proportions of additions or deletions for marked and unmarked individuals during the sampling period. In cases where significant movements occur, potential bias might need to be introduced to the results or more advanced models might be needed to account for population dynamics.</p>
+<blockquote>
+<p><strong>Assumption 2.</strong> All animals are equally likely to be captured in each sample;</p>
+</blockquote>
+<p>Sometimes after initial capture, animals may learn to avoid the traps or area where the capture occurred, causing them to be captured less frequently (“trap shy”). The opposite (“trap happy”) may also occur, making them more likely to be captured. Individuals may also inherently different capture probabilities, and if ignored, the resulting abundance estimates are likely to be negatively biased.</p>
+<blockquote>
+<p><strong>Assumption 3.</strong> Marks are not lost and not overlooked by the observer</p>
+</blockquote>
+<p>It is possible that marks may fade, fall off, or be lost over time, making individuals indistinguishable from unmarked ones during recapture events. Ensuring durable and effective marking techniques is essential to maintain the integrity of the mark-recapture process and achieve unbiased estimates.</p>
+</div>
+</div>
+<div id="distance-sampling" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Distance Sampling<a href="cross.html#distance-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Distance sampling is another widely used method in ecological research or estimating animal abundance and density. Here we focus on conventional distance sampling, the fundamental distance sampling techniques among all.</p>
+<div id="line-transect-sampling" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Line transect sampling<a href="cross.html#line-transect-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usually, observers travel along the transect lines that are strategically placed across the study area to ensure coverage of different habitats and representative sampling of the population. Upon detecting an object, they record the perpendicular distance from the line to the identified object. In some cases, additional information, such as the angle of detection or group size are also recorded for the purpose of multiple-covariate distance sampling (MCDS) analysis.</p>
+<p>Detection function <span class="math inline">\(g(x)\)</span>describes the probability of detecting an animal at different distances from the transect lines. A fundamental assumption is that all objects present on the line are detected, i.e. <span class="math inline">\(g(0)=1\)</span> ; however it is expected that objects become progressively more challenging to detect as their distance from the line increases, leading to a decrease in detection with increasing distance. Commonly used detection functions include uniform, half-normal and hazard rate. Example of adjustment terms include cosine, Hermite polynomial series and simple polynomial series.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Once the detection function is fitted, the estimator can calculate animal density and thus abundance by accounting for the area surveyed and the proportion of animals detected at different distances. The obtained abundance estimates can be extrapolated to the entire study area if the survey design is representative of the entire habitat.</p>
+<p><strong><em>Animal density</em></strong> <span class="math inline">\(D\)</span> <strong><em>is estimated by:</em></strong> <span class="math display">\[\hat{D} = \frac{n}{2wL\hat{P}_a}\]</span></p>
+<p><span class="math display">\[\hat{P}_a = \frac{\int_{0}^{w}\hat{g}(x)dx}{w}\]</span></p>
+<p><em>where:</em></p>
+<ul>
+<li><p><span class="math inline">\(n\)</span> <em>is the number of animals detected.</em></p></li>
+<li><p><span class="math inline">\(w\)</span> <em>is the half-width of the strip.</em></p></li>
+<li><p><span class="math inline">\(L\)</span> <em>is the lengths of transect lines.</em></p></li>
+<li><p><span class="math inline">\(\hat{P}_a\)</span> <em>is the probability that a randomly chosen animal within the surveyed area is detected.</em></p></li>
+<li><p><span class="math inline">\(\hat{g}(x)\)</span> <em>is the estimate of detection function.</em></p></li>
+</ul>
+</div>
+</div>
+<div id="mrds" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> MRDS<a href="cross.html#mrds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mark Recapture Distance Sampling (MRDS) combines the principles of mark-recapture and standard distance sampling. 2 observers each travel along the same transect and record the animals they see and the perpendicular distance. By including the capture history of each animal we have enough information to allow for non-zero detection probability on the line, but we lose the pooling robustness property, so unmodelled heterogeneity will cause biased estimates.</p>
+<p>Point independence models, which assume the two observers’ detection probabilities are uncorrelated at a specific distance, are less biased when faced with unmodelled heterogeneity than full independence models, which assume detection probabilities are independent at all distances. However, the estimates are still negatively biased in this situation. Unmodelled heterogeneity is likely to occur in most surveys as the observers are unlikely to be aware of every potential source of difference in detection and it is not feasible to record multitudes of information whilst moving along a transect.</p>
+<p>One advantage of MRDS is that the extra data from the capture history means that it can be used for situations where the probability of detection on the line is not one. This can be useful for marine surveys, where animals on the transect line may be below the water and so not visible, or surveys in thickly forested areas where it is possible to not see animals high up in the canopy.</p>
+<p>This model also assumes that the observers perfectly match which animals they both saw and which ones only one observer saw. If the animals don’t have uniquely identifying features and there is any kind of animal movement between surveys then this assumption will not hold.</p>
+<p>MRDS should be used in situations where it is suspected p(0) may be less than one and animals are uniformly distributed and uniquely identifiable. If it is used, the observers should collect as much information as is practical to prevent any unmodelled heterogeneity from causing bias.</p>
+<p>From our simulations, MRDS does not perform well in scenarios with non-uniform animal distribution. It is negatively biased when animals initially avoid the line and positively biased when they are attracted to it. Imperfect matching has different effects depending on the type of animal movement but makes the estimates much more variable.</p>
+</div>
+<div id="d-distance" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> 2D Distance<a href="cross.html#d-distance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>2D Distance Sampling builds on standard distance sampling by including the forward distance to the detected animal as well as the perpendicular distance. This removes the assumptions that the animals are uniformly distributed and that p(0) = 1, so this method is useful for situations where the other methods covered previously are not suitable. In particular, 2D distance sampling only requires the transect to be surveyed by one observer. This is not only more efficient but removes the issue of imperfect matching in mark-recapture methods.</p>
+<p>Animal movement is also less problematic for 2D distance sampling. Like in standard distance sampling, as long as the movement is slow relative to the speed of the observers it will only cause a small amount of bias. Responsive movement can be accounted for in the animal distribution model so does not cause bias.</p>
+<p>The likelihood equation for this model is: <span class="math display">\[
+L(N, \boldsymbol{\beta}) = {N\choose n}[1-p.(\boldsymbol{\beta},\boldsymbol{\phi})]^{N-n}\prod_{i = 1}^{n}\pi(x_i; \boldsymbol{\phi})S(t_i, x_i; \boldsymbol{\beta}) h(t_i, x_i; \boldsymbol{\beta})
+\]</span> where:</p>
+<p>- <span class="math inline">\(n\)</span> is the number of animals observed and <span class="math inline">\(N\)</span> is the total in the population</p>
+<p>- <span class="math inline">\(\pi(x_i; \boldsymbol{\phi})\)</span> is the probability animal i is at perpendicular distance <span class="math inline">\(x_i\)</span>. We will refer to <span class="math inline">\(\pi(x_i; \boldsymbol{\phi})\)</span> as the animal distribution function.</p>
+<p>- <span class="math inline">\(h(t_i, x_i; \boldsymbol{\beta})\)</span> is the probability animal i is detected at forward distance <span class="math inline">\(y_i\)</span> and perpendicular distance <span class="math inline">\(x_i\)</span>. We will refer to <span class="math inline">\(h(t_i, x_i; \boldsymbol{\beta})\)</span> as the detection function.</p>
+<p>- <span class="math inline">\(S(t_i, x_i; \boldsymbol{\beta}) = e^{-\int_{0}^{t_i}h(u,x;\boldsymbol{\beta})du}\)</span> is the survivor function, i.e. the probability that animal i was undetected until time <span class="math inline">\(t_i\)</span></p>
+<p>- <span class="math inline">\(p.(\boldsymbol{\beta},\boldsymbol{\phi})\)</span> is the average probability of being detected in the region</p>
+<p>In practice the conditional likelihood <span class="math inline">\(L(\boldsymbol{\beta}|n)\)</span> is used to calculate the maximum likelihood estimators. It is the same as the equation above, but without the leading binomial term, and so avoids considering the unseen animals. <span class="math inline">\(\hat N\)</span> is then estimated using a Horvitz-Thompson like estimator. The forward distance to the detected animal <span class="math inline">\(y_i\)</span> is used instead of the time <span class="math inline">\(t_i\)</span>.</p>
+</div>
+<div id="further-reading" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Further Reading<a href="cross.html#further-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Borchers, D.L., Buckland, S.T. and Zucchini, W. (2002). Estimating Animal Abundance: Closed Populations. Springer London. <a href="https://doi.org/10.1007/978-1-4471-3708-5" class="uri">https://doi.org/10.1007/978-1-4471-3708-5</a></p>
+<p>Borchers, D.L., Laake, J.L., Southwell, C. and Paxton, C.G.M. (2005). Accommodating Unmodeled Heterogeneity in Double-Observer Distance Sampling Surveys. <em>Biometrics</em>, [online] 62(2), pp.372–378. doi:<a href="https://doi.org/10.1111/j.1541-0420.2005.00493.x." class="uri">https://doi.org/10.1111/j.1541-0420.2005.00493.x.</a></p>
+<p>Borchers, D.L. and Cox, M.J. (2016). Distance sampling detection functions: 2D or not 2D? Biometrics, 73(2), pp.593–602. &lt;doi:<a href="https://doi.org/10.1111/biom.12581" class="uri">https://doi.org/10.1111/biom.12581</a>.</p>
+<p>Buckland, S.T., Rexstad, E.A., Marques, T.A. and Oedekoven, C.S. (2015). Distance Sampling: Methods and Applications. Springer International Publish. <a href="https://doi.org/10.1007/978-3-319-19219-2" class="uri">https://doi.org/10.1007/978-3-319-19219-2</a></p>
+<p>Burt, M.L., Borchers, D.L., Jenkins, K.J. and Marques, T.A. (2014). Using mark-recapture distance sampling methods on line transect surveys. Methods in Ecology and Evolution, [online] 5(11), pp.1180–1191. <a href="doi:https://doi.org/10.1111/2041-210x.12294" class="uri">doi:https://doi.org/10.1111/2041-210x.12294</a>.</p>
+<p>Suryawanshi, K.R., Bhatnagar, Y.V. and Mishra, C. (2012). Standardizing the double-observer survey method for estimating mountain ungulate prey of the endangered snow leopard. Oecologia, 169(3), pp.581–590. &lt;doi:<a href="https://doi.org/10.1007/s00442-011-2237-0" class="uri">https://doi.org/10.1007/s00442-011-2237-0</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

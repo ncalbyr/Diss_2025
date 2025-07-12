@@ -25,5 +25,8 @@ detect.data <- function(move, sigma) {
   
   return(df)
 }
+ 
+detection <- detect.data(move = 1, sigma = 0.02)
 
-detect.data(move = 1, sigma = 0.02)
+## The next step is to introduce a DUPLICATE PROCESS (IMPERFECT MATCHING)
+#### This function already assumes PERFECT matching between occasions

@@ -1,10 +1,3 @@
-library(devtools)
-install_github("david-borchers/LT2Dcal",force=TRUE)
-library('LT2D')
-
-#####################################
-#####################################
-
 data(primate.dat)
 x=primate.dat$x
 y=primate.dat$y
@@ -20,7 +13,6 @@ hist(x,breaks=seq(0,max(na.omit(x)),length=12),xlab=pdlab,main="")
 
 # Fit the model
 # Normal bump with ip0 hazard function (SELECTED MODEL in paper):
-ystart = 0.3
 b=c(5, 8)
 logphi=c(0.02, -4.4)
 w=0.03 # this is what is used in the paper

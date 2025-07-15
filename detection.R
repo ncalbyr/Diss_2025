@@ -26,7 +26,11 @@ detect.data <- function(move, sigma) {
   return(df)
 }
  
-detection <- detect.data(move = 1, sigma = 0.02)
-
+detection_0 <- detect.data(move = 0, sigma = 0.02)
+head(detection_0)
+# Save head of table as PNG
+png("detection_0.png", width = 600, height = 250)
+grid.table(head(detection_0, 6), rows = NULL)
+dev.off()
 ## The next step is to introduce a DUPLICATE PROCESS (IMPERFECT MATCHING)
 #### This function already assumes PERFECT matching between occasions

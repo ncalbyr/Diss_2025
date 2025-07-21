@@ -117,5 +117,5 @@ legend("topright", legend = c("Occasion 1", "Occasion 2"),
 ### PNG Generation
 # Save head of table as PNG
 png("primate_moved.png", width = 600, height = 250)
-grid.table(head(primate_moved_a, 6), rows = NULL)
+grid.table(head(primate_moved_0, 6), rows = NULL)
 dev.off()

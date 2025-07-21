@@ -20,7 +20,7 @@ hist(x,breaks=seq(0,max(na.omit(x)),length=12),xlab=pdlab,main="")
 
 # Fit the model
 # Normal bump with ip0 hazard function (SELECTED MODEL in paper):
-ystart = 0.3
+ystart = 0.05 # forward distance beyond which it is IMPOSSIBLE to observe
 b=c(5, 8)
 logphi=c(0.02, -4.4)
 w=0.03 # this is what is used in the paper
@@ -39,6 +39,7 @@ plot(fit.n.ip0,smooth.fy=TRUE)
 gof.ip0 = gof.LT2D(fit.n.ip0,plot=TRUE)
 gof.ip0
 
+fit.n.ip0$counts
 
 
 # -------------------------------------------------
@@ -57,11 +58,14 @@ Fit.n.ip0=LT2D.fit(primate.df,b=b,hr="ip0",ystart=ystart,
                    pi.x="pi.norm",logphi=logphi,w=w,hessian=TRUE,
                    control=list(trace=5,maxit=1000))
 
-# Compare fit to that from fitxy:
+## Compare fit to that from fitxy:
+# Parameter estimate
 fit.n.ip0$par
 Fit.n.ip0$fit$par
+# Coefficient of variation
 fit.n.ip0$CVpar
 Fit.n.ip0$fit$CVpar
+
 # From which we conclude that the fits are identical
 
 # Plot fits
@@ -77,3 +81,8 @@ gof.ip0
 
 # Look at abundance estimates
 Fit.n.ip0$ests
+names(Fit.n.ip0)
+names(Fit.n.ip0$fit)
+Fit.n.ip0$fit$par
+Fit.n.ip0$fit$pi.x
+summary(Fit.n.ip0$fit)

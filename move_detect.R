@@ -1,6 +1,7 @@
+library(circular)
 # Build detections into moved data
 
-detect.data <- function(move, sigma) {
+move.detect <- function(move, sigma) {
   # 1. Use existing initial positions
   primate <- data.frame(x = primate.dat$x, y = primate.dat$y)
   
@@ -25,9 +26,15 @@ detect.data <- function(move, sigma) {
   
   return(df)
 }
- 
-detection_0 <- detect.data(move = 0, sigma = 0.02)
+
+set.seed(224)
+detection_0 <- move.detect(move = 0, sigma = 0.02)
+detection_1 <- move.detect(move = 1, sigma = 0.02)
+
+# View tables
 head(detection_0)
+head(detection_1)
+
 # Save head of table as PNG
 png("detection_0.png", width = 600, height = 250)
 grid.table(head(detection_0, 6), rows = NULL)

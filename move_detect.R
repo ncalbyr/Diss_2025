@@ -1,4 +1,7 @@
 library(circular)
+library(gridExtra)
+library(ggplot2)
+library(grid)
 # Build detections into moved data
 
 move.detect <- function(move, sigma) {

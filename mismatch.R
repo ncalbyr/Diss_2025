@@ -16,7 +16,7 @@ mismatch <- function(df){
     if (length(min.index)>0){  
       if (dist.pair[min.index, i] < 0.03) {detect2 <- 1}
       else if (dist.pair[min.index, i] > 0.1) {detect2 <- 0}
-      else{detect2 <- rbinom(1, 1, p.approx(ys <- seq(0, 0.35, length.out=100), dist.pair[min.index, i], ip0, b=c(6, 0.000005), what = "px"))}
+      else{detect2 <- rbinom(1, 1, p.approx(ys <- seq(0, 0.03, length.out=100), dist.pair[min.index, i], ip0, b=c(6, 0.000005), what = "px"))}
     }else{detect2 <- 0}  # if no obs1 detection to match
     
     if (detect2==1){  # if matched

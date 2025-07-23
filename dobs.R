@@ -22,7 +22,7 @@ lp_1 <- M1 * S1 / R1
 # Compare estimates
 lp_0
 lp_1
-# area_test <- 1.03*1.05  ?????? what is the area ??????
+
 ##### OR... #####
 
 chapman.mr <- function(df, mismatch){
@@ -46,7 +46,7 @@ chap_1 <- chapman.mr(df = detection_1, mismatch = FALSE)
 chap_0
 chap_1
 
-### MRDS?
+### MRDS
 library(mrds)
 fit2.mrds2 <- function(df, mismatch){
   if(mismatch){

@@ -4,6 +4,38 @@ library(truncnorm)
 library(grid)
 library(gridExtra)
 library(circular)
+##### 1) SIMULATE 210 ANIMALS
+# (from perpendicular distribution of "primate.dat")
+# This object uses pi.norm density distribution for pi.x
+Fit.n.ip0$fit$par
+
+hist(primate.dat$x)
+
+# Parameters for "pi.x" distribution from "Fit.n.ip0" in file "primate.fit.R"
+beta1 <- Fit.n.ip0$fit$par[1]
+beta2 <- Fit.n.ip0$fit$par[2]
+
+lphi1 <- Fit.n.ip0$fit$par[3]
+lphi2 <- Fit.n.ip0$fit$par[4]
+
+# Generate x-values from the known perpendicular distribution
+x_set <- rtruncnorm(n = 210, # number of items to generate
+                    a = 0, # lower bound
+                    b = 0.05, # upper bound
+                    mean = lphi1, sd = exp(lphi2) # parameters for normal distribution
+)
+openGraph(h=4,w=9) 
+par(mfrow=c(1,2))
+hist(x_set)
+plot(x_set)
+
+##### 2) FIND FUNCTION (WITH HAZARD SIMULATEOR) TO PRODUCE Y's
+# Generate forward distances (y) ONLY for detected individuals
+detected_xy <- detect2DLT(x = x_set, hr = "ip0", b = c(beta1,beta2),
+                          ystart = 0.05, ny = 1000,
+                          getIDs = T)
+head(detected_xy)
+hist(detected_xy$x) # Is this still not running?
 ##### 4) MOVE X&Y's TO X2&Y2's (Add them back into the fitted object?)
 
 moving <- move.data(df = detected_xy,

@@ -48,6 +48,6 @@ for(i in 1:10){
 density <- abundance
 hist(density) # This took approximately 6 hours to produce
                 ## All maxit=1000, numeric(50),1:50
+par(mfrow=c(1,1))
 abundance <- density*6
 hist(abundance)
-# Double-Observer Method (Loop)

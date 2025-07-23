@@ -45,9 +45,9 @@ for(i in 1:10){
   # Store Density estimate
   abundance[i] <- Fit.new$ests$D[1]
 }
-
-# Plot the results
-hist(abundance, main = "Distribution of Density Estimates", xlab = "Density (D)")
-
-
+density <- abundance
+hist(density) # This took approximately 6 hours to produce
+                ## All maxit=1000, numeric(50),1:50
+abundance <- density*6
+hist(abundance)
 # Double-Observer Method (Loop)

@@ -53,7 +53,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   return(result)
 }
 set.seed(42)
-n_simulations <- 100
+n_simulations <- 50
 
 # Without mismatch
 chapman_results_no_mismatch <- replicate(
@@ -75,13 +75,20 @@ chapman_df_mismatch <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapma
 
 colnames(chapman_df_no_mismatch) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_mismatch) <- c("Nhat", "LCL", "UCL")
-# Histograms
+# Abundance Histograms
+openGraph(h=4,w=9)
+par(mfrow=c(1,2))
 hist(chapman_df_no_mismatch$Nhat, breaks = 20, main = "Chapman Estimator (No Mismatch)",
      xlab = "Abundance Estimate")
 
 hist(chapman_df_mismatch$Nhat, breaks = 20, main = "Chapman Estimator (With Mismatch)",
      xlab = "Abundance Estimate")
+# Density Histograms
+hist(chapman_df_no_mismatch$Nhat/6, breaks = 20, main = "Chapman Estimator (No Mismatch)",
+     xlab = "Density Estimate")
 
+hist(chapman_df_mismatch$Nhat/6, breaks = 20, main = "Chapman Estimator (With Mismatch)",
+     xlab = "Density Estimate")
 # Summaries
 summary(chapman_df_no_mismatch$Nhat)
 summary(chapman_df_mismatch$Nhat)

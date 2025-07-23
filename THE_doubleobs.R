@@ -35,7 +35,7 @@ detected_xy <- detect2DLT(x = x_set, hr = "ip0", b = c(beta1,beta2),
                           ystart = 0.05, ny = 1000,
                           getIDs = T)
 head(detected_xy)
-hist(detected_xy$x) # Is this still not running?
+hist(detected_xy$x)
 ##### 4) MOVE X&Y's TO X2&Y2's (Add them back into the fitted object?)
 
 moving <- move.data(df = detected_xy,

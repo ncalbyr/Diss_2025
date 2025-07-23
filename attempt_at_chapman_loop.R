@@ -42,7 +42,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   
   n_obs <- nrow(df) / 2
   df$detect[df$obs == 2] <- rbinom(n_obs, 1, obs2.probs)
-  df$detect[df$obs == 1] <- 1
+  df$detect[df$obs == 1] <- 1  
   df$detect[abs(df$x) > 0.05] <- 0
   
   # 6. Apply Chapman estimator
@@ -70,8 +70,8 @@ chapman_results_mismatch <- replicate(
 )
 
 # Clean and convert to data.frames
-chapman_df_no_mismatch <- do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch))
-chapman_df_mismatch <- do.call(rbind, Filter(Negate(is.na), chapman_results_mismatch))
+chapman_df_no_mismatch <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch)))
+chapman_df_mismatch <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_mismatch)))
 
 colnames(chapman_df_no_mismatch) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_mismatch) <- c("Nhat", "LCL", "UCL")

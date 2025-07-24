@@ -46,15 +46,11 @@ length(detected_xy$x)
 moving <- move.data(df = detected_xy,
                     move = 0,
                     keep_angle = F)
+# make sure the NEW version of move.data is loaded in
 unmoved <- move.data(df = detected_xy,
                      move=2,
                      keep_angle = F)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
-# Test "ip0" probability
-det.fun <- ip0(y = moving$y2,
-               x = moving$x2,
-               b = c(beta1,beta2))
-
 # Build function
 detect.data <- function(sigma) {
   

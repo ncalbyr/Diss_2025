@@ -52,6 +52,7 @@ unmoved <- move.data(df = detected_xy,
                      keep_angle = F)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
 # Build function
+n = dim(detected_xy)[1] # be careful, this line of code is also used in "THE_LT2D.R"
 detect.data <- function(sigma) {
   
   # Create long-format data

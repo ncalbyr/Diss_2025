@@ -36,7 +36,7 @@ mismatch <- function(df){
 }
 
 # Test
-matched <- mismatch(detection)
+matched <- mismatch(detection_2)
 head(matched)
 # Save head of table as PNG
 png("matched.png", width = 600, height = 250)

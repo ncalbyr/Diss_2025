@@ -6,9 +6,9 @@ library(truncnorm)
 # Initialize storage
 x_set <- list()
 detected_xy <- list()
-abundance <- numeric(10)  # However many estimates you want (even 50 takes a LONG time)
-
-for(i in 1:10){
+abundance <- numeric(100)  # However many estimates you want (at least 100)
+                            # Even 50 took a long time (6 hours)
+for(i in 1:100){
   # Generate x-values from the known perpendicular distribution
   x_set[[i]] <- rtruncnorm(n = 210, 
                            a = 0, 

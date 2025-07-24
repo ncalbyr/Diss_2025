@@ -59,7 +59,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
 }
 
 set.seed(42)
-n_simulations <- 50
+n_simulations <- 100
 
 # Without mismatch
 chapman_results_no_mismatch <- replicate(

@@ -33,7 +33,7 @@ move.detect <- function(move, sigma) {
 set.seed(224)
 detection_0 <- move.detect(move = 0, sigma = 0.02)
 detection_1 <- move.detect(move = 1, sigma = 0.02)
-
+detection_2 <- move.detect(move = 2, sigma = 0.02)
 # View tables
 head(detection_0)
 head(detection_1)

@@ -42,18 +42,12 @@ head(detected_xy)
 hist(detected_xy$x)
 length(detected_xy$x)
 ##### 4) MOVE X&Y's TO X2&Y2's (Add them back into the fitted object?)
-
-moving <- move.data(df = detected_xy,
-                    move = 0,
-                    keep_angle = F)
-# make sure the NEW version of move.data is loaded in
-unmoved <- move.data(df = detected_xy,
-                     move=2,
-                     keep_angle = F)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
 # Build function
 n = dim(detected_xy)[1] # be careful, this line of code is also used in "THE_LT2D.R"
-detect.data <- function(sigma) {
+detect.data <- function(move, sigma) {
+  
+  moving <- move.data(df = detected_xy, move = move, keep_angle = F) # CAN WE JUST INSERT MOVE FUNCTION HERE TO ALLOW EASIER ADJUSTMENT OF TERMS
   
   # Create long-format data
   df <- data.frame(
@@ -78,7 +72,7 @@ detect.data <- function(sigma) {
 }
 
 
-for_dobs <- detect.data(sigma = 0.2)
+for_dobs <- detect.data(move = 2, sigma = 0.2)
 head(for_dobs)
 
 ##### 6) LOOP SEVERAL TIMES TO PRODUCE DISTRIBUTIONS OF MEAN ESTIMATES

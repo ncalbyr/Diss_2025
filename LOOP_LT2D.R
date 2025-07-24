@@ -12,7 +12,7 @@ for(i in 1:10){
   # Generate x-values from the known perpendicular distribution
   x_set[[i]] <- rtruncnorm(n = 210, 
                            a = 0, 
-                           b = 50, 
+                           b = 0.05, 
                            mean = lphi1, sd = exp(lphi2))
   
   # Generate forward distances (y) ONLY for detected individuals
@@ -43,11 +43,12 @@ for(i in 1:10){
                       control = list(trace = 5, maxit = 1000))
   
   # Store Density estimate
-  abundance[i] <- Fit.new$ests$D[1]
+  density[i] <- Fit.new$ests$D[1]
 }
-density <- abundance
-hist(density) # This took approximately 6 hours to produce
-                ## All maxit=1000, numeric(50),1:50
+lt2d_density <- abundance # This took approximately 6 hours to produce
+                      ## All maxit=1000, numeric(50),1:50
+hist(lt2d_density)
+abline(v=35,col="red")
 par(mfrow=c(1,1))
-abundance <- density*6
-hist(abundance)
+lt2d_abundance <- lt2d_density*6
+hist(lt2d_abundance)

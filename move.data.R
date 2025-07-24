@@ -42,6 +42,10 @@ move.data <- function(df, move = 0, keep_angle = FALSE) {
     
     dist <- rlnorm(n, log(0.01), 0.001) # (n, meanlog, sdlog)
     
+  } else if (move == 2) {
+    # no movement
+    df$angle <- 0
+    dist <- 0
   } else {
     stop("Invalid move value. Use 0 (avoidance) or 1 (random).")
   }
@@ -57,10 +61,10 @@ move.data <- function(df, move = 0, keep_angle = FALSE) {
 
 # Test function
 set.seed(126)
-primate_moved_0<- move.data(df = primate,
-                            move = 0)
+primate_moved_2<- move.data(df = primate,
+                            move = 2)
 
-head(primate_moved_0)
+head(primate_moved_2)
 
 
 # Visualize movement with truncation lines

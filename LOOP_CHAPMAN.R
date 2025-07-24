@@ -1,3 +1,8 @@
+# Load packages
+library(devtools)
+install_github("david-borchers/LT2Dcal",force=TRUE)
+library('LT2D')
+# Build function
 simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100, 
                              beta = NULL, lphi = NULL, mismatch = FALSE) {
   # 1. Extract parameters
@@ -52,6 +57,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   
   return(result)
 }
+
 set.seed(42)
 n_simulations <- 50
 
@@ -80,15 +86,17 @@ openGraph(h=4,w=9)
 par(mfrow=c(1,2))
 hist(chapman_df_no_mismatch$Nhat, breaks = 20, main = "Chapman Estimator (No Mismatch)",
      xlab = "Abundance Estimate")
-
 hist(chapman_df_mismatch$Nhat, breaks = 20, main = "Chapman Estimator (With Mismatch)",
      xlab = "Abundance Estimate")
 # Density Histograms
 hist(chapman_df_no_mismatch$Nhat/6, breaks = 20, main = "Chapman Estimator (No Mismatch)",
      xlab = "Density Estimate")
+abline(v=35,col="red")
 
 hist(chapman_df_mismatch$Nhat/6, breaks = 20, main = "Chapman Estimator (With Mismatch)",
      xlab = "Density Estimate")
+abline(v=35,col="red")
+
 # Summaries
 summary(chapman_df_no_mismatch$Nhat)
 summary(chapman_df_mismatch$Nhat)

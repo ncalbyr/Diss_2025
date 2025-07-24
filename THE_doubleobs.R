@@ -1,9 +1,13 @@
+library(devtools)
+install_github("david-borchers/LT2Dcal",force=TRUE)
+library('LT2D')
 library(spatstat)
 library(ggplot2)
 library(truncnorm)
 library(grid)
 library(gridExtra)
 library(circular)
+library(fields)
 ##### 1) SIMULATE 210 ANIMALS
 # (from perpendicular distribution of "primate.dat")
 # This object uses pi.norm density distribution for pi.x
@@ -36,19 +40,20 @@ detected_xy <- detect2DLT(x = x_set, hr = "ip0", b = c(beta1,beta2),
                           getIDs = T)
 head(detected_xy)
 hist(detected_xy$x)
+length(detected_xy$x)
 ##### 4) MOVE X&Y's TO X2&Y2's (Add them back into the fitted object?)
 
 moving <- move.data(df = detected_xy,
                     move = 0,
                     keep_angle = F)
-nrow(moving)
+unmoved <- move.data(df = detected_xy,
+                     move=2,
+                     keep_angle = F)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
 # Test "ip0" probability
 det.fun <- ip0(y = moving$y2,
                x = moving$x2,
                b = c(beta1,beta2))
-max(det.fun)
-min(det.fun)
 
 # Build function
 detect.data <- function(sigma) {

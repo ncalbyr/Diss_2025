@@ -6,7 +6,7 @@ library(truncnorm)
 # Initialize storage
 x_set <- list()
 detected_xy <- list()
-abundance <- numeric(100)  # However many estimates you want (at least 100)
+lt2d_density <- numeric(100)  # However many estimates you want (at least 100)
                             # Even 50 took a long time (6 hours)
 for(i in 1:100){
   # Generate x-values from the known perpendicular distribution
@@ -43,10 +43,9 @@ for(i in 1:100){
                       control = list(trace = 5, maxit = 1000))
   
   # Store Density estimate
-  density[i] <- Fit.new$ests$D[1]
+  lt2d_density[i] <- Fit.new$ests$D[1]
 }
-lt2d_density <- abundance # This took approximately 6 hours to produce
-                      ## All maxit=1000, numeric(50),1:50
+
 hist(lt2d_density)
 abline(v=35,col="red")
 par(mfrow=c(1,1))

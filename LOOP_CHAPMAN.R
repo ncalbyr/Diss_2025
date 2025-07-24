@@ -76,27 +76,59 @@ chapman_results_mismatch <- replicate(
 )
 
 # Clean and convert to data.frames
-chapman_df_no_mismatch <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch)))
-chapman_df_mismatch <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_mismatch)))
+chapman_df_ym_nm <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch)))
+chapman_df_ym_ym <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_mismatch)))
 
-colnames(chapman_df_no_mismatch) <- c("Nhat", "LCL", "UCL")
-colnames(chapman_df_mismatch) <- c("Nhat", "LCL", "UCL")
-# Abundance Histograms
-openGraph(h=4,w=9)
-par(mfrow=c(1,2))
-hist(chapman_df_no_mismatch$Nhat, breaks = 20, main = "Chapman Estimator (No Mismatch)",
-     xlab = "Abundance Estimate")
-hist(chapman_df_mismatch$Nhat, breaks = 20, main = "Chapman Estimator (With Mismatch)",
-     xlab = "Abundance Estimate")
-# Density Histograms
-hist(chapman_df_no_mismatch$Nhat/6, breaks = 20, main = "Chapman Estimator (No Mismatch)",
-     xlab = "Density Estimate")
-abline(v=35,col="red")
+colnames(chapman_df_ym_nm) <- c("Nhat", "LCL", "UCL")
+colnames(chapman_df_ym_ym) <- c("Nhat", "LCL", "UCL")
 
-hist(chapman_df_mismatch$Nhat/6, breaks = 20, main = "Chapman Estimator (With Mismatch)",
-     xlab = "Density Estimate")
-abline(v=35,col="red")
+# Compute means
+mean_abund_ym_nm <- mean(chapman_df_no_mismatch$Nhat)
+mean_abund_ym_ym <- mean(chapman_df_mismatch$Nhat)
+
+mean_density_ym_nm <- mean(chapman_df_no_mismatch$Nhat / 6)
+mean_density_ym_ym <- mean(chapman_df_mismatch$Nhat / 6)
+
+# Open plotting window
+openGraph(h = 6, w = 10)
+par(mfrow = c(2, 2))
+
+## --- Abundance Estimates (No Mismatch) ---
+hist(chapman_df_ym_nm$Nhat, breaks = 20,
+     main = "Chapman Estimator (Movement,No Mismatch)",
+     xlab = "Abundance Estimate", col = "lightgray", border = "white")
+abline(v = 210, col = "red", lwd = 2)  # True value
+abline(v = mean_abund_no_mismatch, col = "blue", lwd = 2, lty = 2)  # Mean estimate
+legend("topright", legend = c("True Abundance", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+
+## --- Abundance Estimates (With Mismatch) ---
+hist(chapman_df_ym_ym$Nhat, breaks = 20,
+     main = "Chapman Estimator (Movement,Mismatch)",
+     xlab = "Abundance Estimate", col = "lightgray", border = "white")
+abline(v = 210, col = "red", lwd = 2)
+abline(v = mean_abund_mismatch, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Abundance", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+
+## --- Density Estimates (No Mismatch) ---
+hist(chapman_df_ym_nm$Nhat / 6, breaks = 20,
+     main = "Density Estimate (Movement,No Mismatch)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_no_mismatch, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+
+## --- Density Estimates (With Mismatch) ---
+hist(chapman_df_ym_ym$Nhat / 6, breaks = 20,
+     main = "Density Estimate (Movement,Mismatch)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_mismatch, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
 
 # Summaries
-summary(chapman_df_no_mismatch$Nhat)
-summary(chapman_df_mismatch$Nhat)
+summary(chapman_df_ym_nm$Nhat)
+summary(chapman_df_ym_ym$Nhat)

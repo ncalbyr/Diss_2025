@@ -45,9 +45,9 @@ move.data <- function(df, move = 0, keep_angle = FALSE) {
   } else if (move == 2) {
     # no movement
     df$angle <- 0
-    dist <- 0
+    dist <- rep(0,n)
   } else {
-    stop("Invalid move value. Use 0 (avoidance) or 1 (random).")
+    stop("Invalid move value. Use 0 (avoidance), 1 (random), or 2 (none).")
   }
   
   # Compute new x and y positions for second occasion

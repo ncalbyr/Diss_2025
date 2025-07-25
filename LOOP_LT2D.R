@@ -46,8 +46,27 @@ for(i in 1:100){
   lt2d_density[i] <- Fit.new$ests$D[1]
 }
 
-hist(lt2d_density)
-abline(v=35,col="red")
+## Build plots
 par(mfrow=c(1,1))
+
+# Density
+mean_density_lt2d <- mean(lt2d_density)
+hist(lt2d_density, breaks = 20,
+     main = "Density Estimate (LT2D)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_lt2d , col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+
+# Abundance
 lt2d_abundance <- lt2d_density*6
-hist(lt2d_abundance)
+mean_abund_lt2d <- mean(lt2d_abundance)
+hist(lt2d_abundance, breaks = 20,
+     main = "Abundance Estimate (LT2D)",
+     xlab = "Abundance Estimate", col = "lightgray", border = "white")
+abline(v = 210, col = "red", lwd = 2)
+abline(v = mean_abund_lt2d , col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Abundance", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+

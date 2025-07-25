@@ -2,6 +2,7 @@
 library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
 library('LT2D')
+
 # Build function
 simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100, 
                              beta = NULL, lphi = NULL, mismatch = FALSE) {
@@ -30,7 +31,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   if (nrow(detected_xy) < 5) return(NA)
   
   # 4. Move to 2nd observer location
-  moving <- move.data(df = detected_xy, move = 0, keep_angle = FALSE)
+  moving <- move.data(df = detected_xy, move = 2, keep_angle = FALSE)
   
   # 5. Simulate detection outcomes for observer 2
   df <- data.frame(
@@ -58,22 +59,30 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   return(result)
 }
 
+###############################################################################
+
 set.seed(42)
 n_simulations <- 100
+#########################################################
 
+# NO MOVEMENT
+chapman_no_movement <- replicate(
+  n_simulations,
+  simulate_chapman(Fit.n.ip0, mismatch = FALSE),
+  simplify = FALSE)
+
+#########################################################
 # Without mismatch
 chapman_results_no_mismatch <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = FALSE),
-  simplify = FALSE
-)
+  simplify = FALSE)
 
 # With mismatch
 chapman_results_mismatch <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = TRUE),
-  simplify = FALSE
-)
+  simplify = FALSE)
 
 # Clean and convert to data.frames
 chapman_df_ym_nm <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch)))
@@ -132,3 +141,7 @@ legend("topright", legend = c("True Density", "Mean Estimate"),
 # Summaries
 summary(chapman_df_ym_nm$Nhat)
 summary(chapman_df_ym_ym$Nhat)
+
+# Density objects
+chapman_density_ym_nm <- chapman_df_ym_nm$Nhat / 6
+chapman_density_ym_ym <- chapman_df_ym_ym$Nhat / 6

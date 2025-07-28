@@ -28,18 +28,18 @@ fit.n.ip0=fityx(y[x<=w],x[x<=w],b=b,hr="ip0",ystart=ystart,
                 pi.x="pi.norm",logphi=logphi,w=w,hessian=TRUE,control=list(trace=5,maxit=1000))
 
 # Looks like there's a bug in fitxy - it should have added $covariates. Add manually:
-fit.n.ip0$covariates = FALSE
+#fit.n.ip0$covariates = FALSE
 
 # Plot fits
-openGraph(h=4,w=9)
-par(mfrow=c(1,2))
-plot(fit.n.ip0,smooth.fy=TRUE)
+#openGraph(h=4,w=9)
+#par(mfrow=c(1,2))
+#plot(fit.n.ip0,smooth.fy=TRUE)
 
 # Plot GoF and print Go0F ststistics
-gof.ip0 = gof.LT2D(fit.n.ip0,plot=TRUE)
-gof.ip0
+#gof.ip0 = gof.LT2D(fit.n.ip0,plot=TRUE)
+#gof.ip0
 
-fit.n.ip0$counts
+#fit.n.ip0$counts
 
 
 # -------------------------------------------------
@@ -60,10 +60,10 @@ Fit.n.ip0=LT2D.fit(primate.df,b=b,hr="ip0",ystart=ystart,
 
 ## Compare fit to that from fitxy:
 # Parameter estimate
-fit.n.ip0$par
+#fit.n.ip0$par
 Fit.n.ip0$fit$par
 # Coefficient of variation
-fit.n.ip0$CVpar
+#fit.n.ip0$CVpar
 Fit.n.ip0$fit$CVpar
 
 # From which we conclude that the fits are identical
@@ -74,10 +74,10 @@ par(mfrow=c(1,2))
 plot(Fit.n.ip0,smooth.fy=TRUE)
 
 # Plot GoF and print Go0F ststistics
-openGraph(h=4,w=9)
-par(mfrow=c(1,2))
-gof.ip0 = gof.LT2D(fit.n.ip0,plot=TRUE)
-gof.ip0
+#openGraph(h=4,w=9)
+#par(mfrow=c(1,2))
+#gof.ip0 = gof.LT2D(fit.n.ip0,plot=TRUE)
+#gof.ip0
 
 # Look at abundance estimates
 Fit.n.ip0$ests

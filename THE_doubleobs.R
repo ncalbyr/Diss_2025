@@ -39,15 +39,15 @@ detected_xy <- detect2DLT(x = x_set, hr = "ip0", b = c(beta1,beta2),
                           ystart = 0.05, ny = 1000,
                           getIDs = T)
 head(detected_xy)
-hist(detected_xy$x)
-length(detected_xy$x)
 ##### 4) MOVE X&Y's TO X2&Y2's (Add them back into the fitted object?)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
 # Build function
-n = dim(detected_xy)[1] # be careful, this line of code is also used in "THE_LT2D.R"
-detect.data <- function(move, sigma) {
+
+moving <- move.data(df = detected_xy, move = 2, keep_angle = F)
+
+detect.data <- function(sigma) {
   
-  moving <- move.data(df = detected_xy, move = move, keep_angle = F) # CAN WE JUST INSERT MOVE FUNCTION HERE TO ALLOW EASIER ADJUSTMENT OF TERMS
+  n <- nrow(df)
   
   # Create long-format data
   df <- data.frame(
@@ -63,7 +63,7 @@ detect.data <- function(move, sigma) {
   # Generate detection probability with this function from LT2D package
   obs2.probs <- p.approx(ys, df$x[df$obs==2], ip0, b=c(beta1, beta2), what = "px")
   
-  df$detect[df$obs==2] <- rbinom(n, 1, obs2.probs)  # second observer detection
+  df$detect[df$obs==2] <- rbinom(length(obs2.probs), 1, obs2.probs)  # second observer detection
   df$detect[df$obs==1] <- 1 # Because all obs. 1's are already known detections
   
   df$detect[abs(df$x)>0.05] <- 0 # Anything beyond observable range goes undetected
@@ -72,8 +72,11 @@ detect.data <- function(move, sigma) {
 }
 
 
-for_dobs <- detect.data(move = 2, sigma = 0.2)
+for_dobs <- detect.data(sigma = 0.2)
 head(for_dobs)
+
+subset(for_dobs, obs == 1)$x == subset(for_dobs, obs == 2)$x  # Should be all TRUE
+subset(for_dobs, obs == 1)$y == subset(for_dobs, obs == 2)$y  # Should be all TRUE
 
 ##### 6) LOOP SEVERAL TIMES TO PRODUCE DISTRIBUTIONS OF MEAN ESTIMATES
 

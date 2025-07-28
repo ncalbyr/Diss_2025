@@ -9,7 +9,7 @@ bias_lt2d
 bias_do_nm_nm <- (mean_density_none-35)/35*100
 bias_do_nm_nm
 
-chapman_none[]
+
 # 3. Double-Observer/YES movement/NO mismatch
 # (random movement)
 bias_do_ym_nm <- (mean(chapman_df_ym_nm)-35)/35*100

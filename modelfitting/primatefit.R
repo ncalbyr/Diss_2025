@@ -10,13 +10,17 @@ x=primate.dat$x
 y=primate.dat$y
 
 # Look at the data
-openGraph(h=3,w=12)
-par(mfrow=c(1,3))
+par(mfrow=c(1,1))
 pdlab="Perpendicular distance"
 fdlab="Distance along transect"
 plot(jitter(y,1,0),jitter(x),pch="+",ylab=pdlab,xlab=fdlab,main="")
+abline(h = 0.03, col = "red", lty = 2, lwd = 2)
+
 hist(y,breaks=seq(0,max(na.omit(y)),length=16),xlab=fdlab,main="")
+abline(v = 0.03, col = "red", lty = 2, lwd = 2)
+
 hist(x,breaks=seq(0,max(na.omit(x)),length=12),xlab=pdlab,main="")
+abline(v = 0.03, col = "red", lty = 2, lwd = 2)
 
 # Fit the model
 # Normal bump with ip0 hazard function (SELECTED MODEL in paper):

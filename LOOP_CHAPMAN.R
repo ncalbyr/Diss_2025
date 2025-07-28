@@ -2,10 +2,12 @@
 library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
 library('LT2D')
+library(truncnorm)
+library(circular)
 
-# Build function
 simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100, 
-                             beta = NULL, lphi = NULL, mismatch = FALSE) {
+                            beta = NULL, lphi = NULL, mismatch = FALSE,
+                            move = 0) {
   # 1. Extract parameters
   if (is.null(beta)) {
     beta1 <- Fit.n.ip0$fit$par[1]
@@ -31,7 +33,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   if (nrow(detected_xy) < 5) return(NA)
   
   # 4. Move to 2nd observer location
-  moving <- move.data(df = detected_xy, move = 2, keep_angle = FALSE)
+  moving <- move.data(df = detected_xy, move = move, keep_angle = FALSE)
   
   # 5. Simulate detection outcomes for observer 2
   df <- data.frame(
@@ -64,39 +66,47 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
 set.seed(42)
 n_simulations <- 100
 #########################################################
-
-# NO MOVEMENT
-chapman_no_movement <- replicate(
+# NO MOVEMENT/NO MISMATCH
+chapman_none <- replicate(
   n_simulations,
-  simulate_chapman(Fit.n.ip0, mismatch = FALSE),
-  simplify = FALSE)
+  simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 0),
+  simplify = FALSE
+  )
 
 #########################################################
-# Without mismatch
+# NO mismatch/RANDOM movement
 chapman_results_no_mismatch <- replicate(
   n_simulations,
-  simulate_chapman(Fit.n.ip0, mismatch = FALSE),
+  simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 1),
   simplify = FALSE)
 
-# With mismatch
+# YES mismatch/RANDOM movement
 chapman_results_mismatch <- replicate(
   n_simulations,
-  simulate_chapman(Fit.n.ip0, mismatch = TRUE),
+  simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 2),
   simplify = FALSE)
 
 # Clean and convert to data.frames
+chapman_df_none <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_none)))
 chapman_df_ym_nm <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch)))
 chapman_df_ym_ym <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_mismatch)))
 
+colnames(chapman_df_none) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_nm) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_ym) <- c("Nhat", "LCL", "UCL")
 
-# Compute means
-mean_abund_ym_nm <- mean(chapman_df_no_mismatch$Nhat)
-mean_abund_ym_ym <- mean(chapman_df_mismatch$Nhat)
+# Summaries
+summary(chapman_df_ym_nm$Nhat)
+summary(chapman_df_ym_ym$Nhat)
 
-mean_density_ym_nm <- mean(chapman_df_no_mismatch$Nhat / 6)
-mean_density_ym_ym <- mean(chapman_df_mismatch$Nhat / 6)
+# Compute means
+mean_abund_none <- mean(chapman_df_none$Nhat)
+mean_abund_ym_nm <- mean(chapman_df_ym_nm$Nhat)
+mean_abund_ym_ym <- mean(chapman_df_ym_ym$Nhat)
+
+mean_density_none <- mean(chapman_df_none$Nhat / 6)
+mean_density_ym_nm <- mean(chapman_df_ym_nm$Nhat / 6)
+mean_density_ym_ym <- mean(chapman_df_ym_ym$Nhat / 6)
 
 # Open plotting window
 openGraph(h = 6, w = 10)
@@ -107,7 +117,7 @@ hist(chapman_df_ym_nm$Nhat, breaks = 20,
      main = "Chapman Estimator (Movement,No Mismatch)",
      xlab = "Abundance Estimate", col = "lightgray", border = "white")
 abline(v = 210, col = "red", lwd = 2)  # True value
-abline(v = mean_abund_no_mismatch, col = "blue", lwd = 2, lty = 2)  # Mean estimate
+abline(v = mean_abund_ym_nm, col = "blue", lwd = 2, lty = 2)  # Mean estimate
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
 
@@ -116,7 +126,7 @@ hist(chapman_df_ym_ym$Nhat, breaks = 20,
      main = "Chapman Estimator (Movement,Mismatch)",
      xlab = "Abundance Estimate", col = "lightgray", border = "white")
 abline(v = 210, col = "red", lwd = 2)
-abline(v = mean_abund_mismatch, col = "blue", lwd = 2, lty = 2)
+abline(v = mean_abund_ym_ym, col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
 
@@ -125,7 +135,7 @@ hist(chapman_df_ym_nm$Nhat / 6, breaks = 20,
      main = "Density Estimate (Movement,No Mismatch)",
      xlab = "Density Estimate", col = "lightgray", border = "white")
 abline(v = 35, col = "red", lwd = 2)
-abline(v = mean_density_no_mismatch, col = "blue", lwd = 2, lty = 2)
+abline(v = mean_density_ym_nm, col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Density", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
 
@@ -134,14 +144,6 @@ hist(chapman_df_ym_ym$Nhat / 6, breaks = 20,
      main = "Density Estimate (Movement,Mismatch)",
      xlab = "Density Estimate", col = "lightgray", border = "white")
 abline(v = 35, col = "red", lwd = 2)
-abline(v = mean_density_mismatch, col = "blue", lwd = 2, lty = 2)
+abline(v = mean_density_ym_ym, col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Density", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
-
-# Summaries
-summary(chapman_df_ym_nm$Nhat)
-summary(chapman_df_ym_ym$Nhat)
-
-# Density objects
-chapman_density_ym_nm <- chapman_df_ym_nm$Nhat / 6
-chapman_density_ym_ym <- chapman_df_ym_ym$Nhat / 6

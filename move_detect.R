@@ -42,5 +42,24 @@ head(detection_1)
 png("detection_0.png", width = 600, height = 250)
 grid.table(head(detection_0, 6), rows = NULL)
 dev.off()
+
+# Estimate Abundance with Chapman Estimator
+chapman.mr <- function(df, mismatch){
+  if (mismatch==TRUE){df <- mismatch(df)}
+  
+  S1 <- nrow(df[df$obs==1 & df$detect==1, ])  # first occasion
+  S2 <- nrow(df[df$obs==2 & df$detect==1, ])  # second occasion
+  B <- df$detect[df$obs==1]==1 & df$detect[df$obs==2]==1  
+  B <- length(B[B==TRUE])  # caught by both occasions
+  N.hat <- (S1+1)*(S2+1)/(B+1)-1  # abundance estimate
+  var.N <- (S1+1)*(S2+1)*(S1-B)*(S2-B)/(((B+1)^2)*(B+2))
+  d <- exp(1.96*sqrt(log(1+(var.N/(N.hat^2)))))
+  lcl <- N.hat/d; ucl <- N.hat*d
+  return(c(N.hat, lcl, ucl))
+}
+
+first_chap_est <- chapman.mr(df = detection_0, mismatch = F)
+first_chap_est/6 # Density
+
 ## The next step is to introduce a DUPLICATE PROCESS (IMPERFECT MATCHING)
 #### This function already assumes PERFECT matching between occasions

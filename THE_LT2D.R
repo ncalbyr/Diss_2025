@@ -2,6 +2,7 @@
 library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
 library('LT2D')
+
 library(spatstat)
 library(ggplot2)
 library(truncnorm)

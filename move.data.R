@@ -2,6 +2,7 @@
 library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
 library('LT2D')
+
 library(circular)
 library(gridExtra)
 library(ggplot2)
@@ -69,16 +70,16 @@ head(primate_moved_2)
 
 # Visualize movement with truncation lines
 plot(primate$x, primate$y, pch = 16, col = "blue", 
-     xlim = range(primate_moved_0$x, primate_moved_0$x2),
-     ylim = range(primate_moved_0$y, primate_moved_0$y2), 
+     xlim = range(primate_moved_2$x, primate_moved_2$x2),
+     ylim = range(primate_moved_2$y, primate_moved_2$y2), 
      xlab = "Perpendicular (x)", ylab = "Forward (y)")
 
 # Add movement arrows
-arrows(primate$x, primate$y, primate_moved_0$x2, primate_moved_0$y2, 
+arrows(primate$x, primate$y, primate_moved_2$x2, primate_moved_2$y2, 
        length = 0.05, col = "darkgray")
 
 # Add second location points
-points(primate_moved_0$x2, primate_moved_0$y2, pch = 17, col = "red")
+points(primate_moved_2$x2, primate_moved_2$y2, pch = 17, col = "red")
 
 # Add truncation lines
 abline(v = c(-0.03, 0.03), col = "black", lty = 2)  # vertical truncation

@@ -69,4 +69,3 @@ abline(v = 210, col = "red", lwd = 2)
 abline(v = mean_abund_lt2d , col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
-

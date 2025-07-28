@@ -5,6 +5,8 @@ library('LT2D')
 library(truncnorm)
 library(circular)
 
+
+# Build function
 simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100, 
                             beta = NULL, lphi = NULL, mismatch = FALSE,
                             move = 0) {
@@ -34,7 +36,7 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   
   # 4. Move to 2nd observer location
   moving <- move.data(df = detected_xy, move = move, keep_angle = FALSE)
-  
+
   # 5. Simulate detection outcomes for observer 2
   df <- data.frame(
     id = rep(1:nrow(moving), each = 2),
@@ -80,6 +82,7 @@ chapman_results_no_mismatch <- replicate(
   simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 1),
   simplify = FALSE)
 
+#########################################################
 # YES mismatch/RANDOM movement
 chapman_results_mismatch <- replicate(
   n_simulations,
@@ -94,10 +97,6 @@ chapman_df_ym_ym <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_r
 colnames(chapman_df_none) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_nm) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_ym) <- c("Nhat", "LCL", "UCL")
-
-# Summaries
-summary(chapman_df_ym_nm$Nhat)
-summary(chapman_df_ym_ym$Nhat)
 
 # Compute means
 mean_abund_none <- mean(chapman_df_none$Nhat)

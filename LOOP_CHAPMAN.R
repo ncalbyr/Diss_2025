@@ -99,7 +99,9 @@ colnames(chapman_df_ym_nm) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_ym) <- c("Nhat", "LCL", "UCL")
 
 # Compute means
-mean_abund_ym_nm <- mean(chapman_df_no_mismatch$Nhat)
+mean_abund_none <- mean(chapman_df_none$Nhat)
+mean_abund_ym_nm <- mean(chapman_df_ym_nm$Nhat)
+mean_abund_ym_ym <- mean(chapman_df_ym_ym$Nhat)
 
 mean_density_none <- mean(chapman_df_none$Nhat / 6)
 mean_density_ym_nm <- mean(chapman_df_ym_nm$Nhat / 6)

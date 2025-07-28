@@ -77,31 +77,29 @@ chapman_none <- replicate(
 
 #########################################################
 # NO mismatch/RANDOM movement
-chapman_results_no_mismatch <- replicate(
+chapman_ym_nm <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 1),
   simplify = FALSE)
 
 #########################################################
 # YES mismatch/RANDOM movement
-chapman_results_mismatch <- replicate(
+chapman_ym_ym <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 2),
   simplify = FALSE)
 
 # Clean and convert to data.frames
 chapman_df_none <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_none)))
-chapman_df_ym_nm <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_no_mismatch)))
-chapman_df_ym_ym <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_results_mismatch)))
+chapman_df_ym_nm <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_ym_nm)))
+chapman_df_ym_ym <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_ym_ym)))
 
 colnames(chapman_df_none) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_nm) <- c("Nhat", "LCL", "UCL")
 colnames(chapman_df_ym_ym) <- c("Nhat", "LCL", "UCL")
 
 # Compute means
-mean_abund_none <- mean(chapman_df_none$Nhat)
-mean_abund_ym_nm <- mean(chapman_df_ym_nm$Nhat)
-mean_abund_ym_ym <- mean(chapman_df_ym_ym$Nhat)
+mean_abund_ym_nm <- mean(chapman_df_no_mismatch$Nhat)
 
 mean_density_none <- mean(chapman_df_none$Nhat / 6)
 mean_density_ym_nm <- mean(chapman_df_ym_nm$Nhat / 6)

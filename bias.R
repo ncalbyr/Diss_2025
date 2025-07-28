@@ -12,12 +12,12 @@ bias_do_nm_nm
 
 # 3. Double-Observer/YES movement/NO mismatch
 # (random movement)
-bias_do_ym_nm <- (mean(chapman_df_ym_nm)-35)/35*100
+bias_do_ym_nm <- (mean_density_ym_nm-35)/35*100
 bias_do_ym_nm
 
 # 4. Double Observer/YES movement/YES mismatch
 # (random movement)
-bias_do_ym_ym <- (mean(chapman_density_ym_ym)-35)/35*100
+bias_do_ym_ym <- (mean_density_ym_ym-35)/35*100
 bias_do_ym_nm
 
 bias <- list(LT2D = bias_lt2d,

@@ -1,6 +1,7 @@
 library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
 library('LT2D')
+###
 library(spatstat)
 library(ggplot2)
 library(truncnorm)
@@ -8,6 +9,9 @@ library(grid)
 library(gridExtra)
 library(circular)
 library(fields)
+library(dplyr)
+library(ggplot2)
+
 ##### 1) SIMULATE 210 ANIMALS
 # (from perpendicular distribution of "primate.dat")
 # This object uses pi.norm density distribution for pi.x
@@ -50,14 +54,14 @@ detect.data <- function(sigma) {
   n <- nrow(df)
   
   # Create long-format data
-  df <- data.frame(
+  df <- data.frame( # this isn't alternating x and x2's, it's putting them all in one long line (all x's and THEN all x2's)
     id = rep(1:nrow(moving), each = 2),
     obs = rep(1:2, times = nrow(moving)),
-    x = c(moving$x, moving$x2),
-    y = c(moving$y, moving$y2),
+    x = as.vector(rbind(moving$x, moving$x2)),
+    y = as.vector(rbind(moving$y, moving$y2)),
     detect = NA
   )
-  
+  +
   # b. Simulate detection (only needed for observation 2)
   ys <- seq(0, 0.05, length.out=100)  
   # Generate detection probability with this function from LT2D package
@@ -105,3 +109,30 @@ chap_T
 nrow(for_dobs[for_dobs$obs==2 & for_dobs$detect==1, ])
 nrow(for_dobs[for_dobs$obs==2, ])
 nrow(for_dobs)
+
+# PLOT MOVEMENT
+# Visualize movement with truncation lines
+movement_data <- for_dobs %>%
+  filter(obs %in% c(1, 2)) %>%
+  arrange(id, obs) %>%
+  group_by(id) %>%
+  summarize(
+    x1 = x[obs == 1],
+    y1 = y[obs == 1],
+    x2 = x[obs == 2],
+    y2 = y[obs == 2],
+    detect1 = detect[obs == 1],
+    detect2 = detect[obs == 2]
+  ) %>%
+  ungroup()
+
+ggplot(data = movement_data,
+       aes(x = x1, y = y1)) +
+  geom_segment(aes(xend = x2, yend = y2),
+               arrow = arrow(length = unit(0.2,"cm")),
+               color = "blue") +
+  geom_point(aes(x = x1, y = y1), color = "green", size = 2) +
+  geom_point(aes(x = x2, y = y2), color = "red", size = 2) +
+  labs(title = "Movement from Observation 1 to 2",
+       x = "X coordinate", y = "Y coordinate") +
+  theme_minimal()

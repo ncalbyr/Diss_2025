@@ -47,7 +47,7 @@ head(detected_xy)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
 # Build function
 
-moving <- move.data(df = detected_xy, move = 2, keep_angle = F)
+moving <- move.data(df = detected_xy, move = 0, keep_angle = F)
 
 detect.data <- function(sigma) {
   
@@ -61,7 +61,7 @@ detect.data <- function(sigma) {
     y = as.vector(rbind(moving$y, moving$y2)),
     detect = NA
   )
-  +
+  
   # b. Simulate detection (only needed for observation 2)
   ys <- seq(0, 0.05, length.out=100)  
   # Generate detection probability with this function from LT2D package
@@ -136,3 +136,4 @@ ggplot(data = movement_data,
   labs(title = "Movement from Observation 1 to 2",
        x = "X coordinate", y = "Y coordinate") +
   theme_minimal()
+

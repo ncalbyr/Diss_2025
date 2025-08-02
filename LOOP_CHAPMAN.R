@@ -68,27 +68,43 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
 set.seed(42)
 n_simulations <- 100
 #########################################################
-# NO MOVEMENT/NO MISMATCH
-chapman_none <- replicate(
+# NO mismatch/NO movement
+chapman_nm_none <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 0),
   simplify = FALSE
   )
-
+#########################################################
+# NO mismatch/AVOIDANT movement
+chapman_ym_avoid <- replicate(
+  n_simulations,
+  simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 0),
+  simplify = FALSE)
 #########################################################
 # NO mismatch/RANDOM movement
-chapman_ym_nm <- replicate(
+chapman_ym_random <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = FALSE, move = 1),
   simplify = FALSE)
-
+#########################################################
+# YES mismatch/AVOIDANT movement
+chapman_ym_avoid <- replicate(
+  n_simulations,
+  simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 0),
+  simplify = FALSE)
 #########################################################
 # YES mismatch/RANDOM movement
-chapman_ym_ym <- replicate(
+chapman_ym_random <- replicate(
+  n_simulations,
+  simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 1),
+  simplify = FALSE)
+#########################################################
+# YES mismatch/NO movement
+chapman_ym_none <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 2),
   simplify = FALSE)
-
+#########################################################
 # Clean and convert to data.frames
 chapman_df_none <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_none)))
 chapman_df_ym_nm <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_ym_nm)))

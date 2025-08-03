@@ -6,34 +6,49 @@ bias_lt2d <- (mean_density_lt2d-35)/35*100
 bias_lt2d
 
 # 2. Double-Observer/NO mismatch/NO movement
-bias_do_nm_none <- (mean_density_none-35)/35*100
+bias_do_nm_none <- (mean_density_nm_none-35)/35*100
 bias_do_nm_none
 
 # 3. Double-Observer/NO mismatch/Avoidant movement
-bias_do_
+bias_do_nm_avoid <- (mean_density_nm_avoid-35)/35*100
+bias_do_nm_avoid
 
-# 3. Double-Observer/YES movement/NO mismatch
-# (random movement)
-bias_do_ym_nm <- (mean_density_ym_nm-35)/35*100
-bias_do_ym_nm
+# 4. Double-Observer/NO mismatch/Random movement
+bias_do_nm_random <- (mean_density_nm_random-35)/35*100
+bias_do_nm_random
 
-# 4. Double Observer/YES movement/YES mismatch
-# (random movement)
-bias_do_ym_ym <- (mean_density_ym_ym-35)/35*100
-bias_do_ym_nm
+# 5. Double-Observer/YES mismatch/No movement
+bias_do_ym_none <- (mean_density_ym_none-35)/35*100
+bias_do_ym_none
 
+# 6. Double-Observer/YES mismatch/Avoidant movement
+bias_do_ym_avoid <- (mean_density_ym_avoid-35)/35*100
+bias_do_ym_avoid
+
+# 7. Double-Observer/YES mismatch/No movement
+bias_do_ym_random <- (mean_density_ym_random-35)/35*100
+bias_do_ym_random
+
+
+# 7 labels for 7 methods
 bias_df <- data.frame(
   Method = c(
     "LT2D",
-    "Double-Observer / NO movement / NO mismatch",
-    "Double-Observer / YES movement / NO mismatch",
-    "Double-Observer / YES movement / YES mismatch"
-  ),
+    "Double-Observer / No mismatch / No movement",
+    "Double-Observer / No mismatch / Avoidant movement",
+    "Double-Observer / No mismatch / Random movement",
+    "Double-Observer / Yes mismatch / No movement",
+    "Double-Observer / Yes mismatch / Avoidant movement",
+    "Double-Observer / Yes mismatch / Random movement"
+    ),
   Percent_Bias = c(
     bias_lt2d,
-    bias_do_nm_nm,
-    bias_do_ym_nm,
-    bias_do_ym_ym
+    bias_do_nm_none,
+    bias_do_nm_avoid,
+    bias_do_nm_random,
+    bias_do_ym_none,
+    bias_do_ym_avoid,
+    bias_do_ym_random
   ))
 
 # Generate better visualization

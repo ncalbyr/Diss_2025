@@ -105,39 +105,60 @@ chapman_ym_none <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 2),
   simplify = FALSE)
+chapman_ym_none$density <- chapman_ym_none$Nhat/6
 #########################################################
 # Clean and convert to data.frames
 chapman_df_nm_none <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_nm_none)))
+chapman_df_nm_none$density <- chapman_df_nm_none$V1/6
 chapman_df_nm_avoid <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_nm_avoid)))
+chapman_df_nm_avoid$density <- chapman_df_nm_avoid$V1/6
 chapman_df_nm_random <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_nm_random)))
+chapman_df_nm_random$density <- chapman_df_nm_random$V1/6
 
 chapman_df_ym_none <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_ym_none)))
+chapman_df_ym_none$density <- chapman_df_ym_none$V1/6
 chapman_df_ym_avoid <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_ym_avoid)))
+chapman_df_ym_avoid$density <- chapman_df_ym_avoid$V1/6
 chapman_df_ym_random <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_ym_random)))
+chapman_df_ym_random$density <- chapman_df_ym_random$V1/6
 #########################################################
 # Name values
-colnames(chapman_df_nm_none) <- c("Nhat", "LCL", "UCL")
-colnames(chapman_df_nm_avoid) <- c("Nhat", "LCL", "UCL")
-colnames(chapman_df_nm_random) <- c("Nhat", "LCL", "UCL")
+colnames(chapman_df_nm_none) <- c("Nhat", "LCL", "UCL","density")
+colnames(chapman_df_nm_avoid) <- c("Nhat", "LCL", "UCL","density")
+colnames(chapman_df_nm_random) <- c("Nhat", "LCL", "UCL","density")
 
-colnames(chapman_df_ym_none) <- c("Nhat", "LCL", "UCL")
-colnames(chapman_df_ym_avoid) <- c("Nhat", "LCL", "UCL")
-colnames(chapman_df_ym_random) <- c("Nhat", "LCL", "UCL")
+colnames(chapman_df_ym_none) <- c("Nhat", "LCL", "UCL","density")
+colnames(chapman_df_ym_avoid) <- c("Nhat", "LCL", "UCL","density")
+colnames(chapman_df_ym_random) <- c("Nhat", "LCL", "UCL","density")
 
 #########################################################
-# Compute means
+## Compute ABUNDANCE means
+#no mismatch
 mean_abund_nm_none <- mean(chapman_df_nm_none$Nhat)
 mean_abund_nm_avoid <- mean(chapman_df_nm_avoid$Nhat)
 mean_abund_nm_random <- mean(chapman_df_nm_random$Nhat)
 
-mean_density_ym_none <- mean(chapman_df_ym_none$Nhat / 6)
-mean_density_ym_avoid <- mean(chapman_df_ym_avoid$Nhat / 6)
-mean_density_ym_random <- mean(chapman_df_ym_random$Nhat / 6)
+#yes mismatch
+mean_abund_ym_none <- mean(chapman_df_ym_none$Nhat)
+mean_abund_ym_avoid <- mean(chapman_df_ym_avoid$Nhat)
+mean_abund_ym_random <- mean(chapman_df_ym_random$Nhat)
+
+## Compute DENSITY means
+#no mismatch
+mean_density_nm_none <- mean(chapman_df_nm_none$density)
+mean_density_nm_avoid <- mean(chapman_df_nm_avoid$density)
+mean_density_nm_random <- mean(chapman_df_nm_random$density)
+#yes mismatch
+mean_density_ym_none <- mean(chapman_df_ym_none$density)
+mean_density_ym_avoid <- mean(chapman_df_ym_avoid$density)
+mean_density_ym_random <- mean(chapman_df_ym_random$density)
 
 # Open plotting window
 openGraph(h = 6, w = 10)
-par(mfrow = c(2, 2))
-
+par(mfrow = c(1, 3))
+###############################################################################
+###########################   Abundance   #####################################
+###############################################################################
 ## --- Abundance Estimates (No Mismatch, No Movement) ---
 hist(chapman_df_nm_none$Nhat, breaks = 20,
      main = "Chapman Estimator (No mismatch, No movement)",
@@ -146,7 +167,8 @@ abline(v = 210, col = "red", lwd = 2)  # True value
 abline(v = mean_abund_nm_none, col = "blue", lwd = 2, lty = 2)  # Mean estimate
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
-## --- Abundance Estimates (No Mismatch, Avoidatn Movement) ---
+
+## --- Abundance Estimates (No Mismatch, Avoidant Movement) ---
 hist(chapman_df_nm_avoid$Nhat, breaks = 20,
      main = "Chapman Estimator (No mismatch, Avoidant movement)",
      xlab = "Abundance Estimate", col = "lightgray", border = "white")
@@ -154,6 +176,7 @@ abline(v = 210, col = "red", lwd = 2)  # True value
 abline(v = mean_abund_nm_avoid, col = "blue", lwd = 2, lty = 2)  # Mean estimate
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+
 ## --- Abundance Estimates (No Mismatch, Random Movement) ---
 hist(chapman_df_nm_random$Nhat, breaks = 20,
      main = "Chapman Estimator (No mismatch, Random movement)",
@@ -162,6 +185,8 @@ abline(v = 210, col = "red", lwd = 2)  # True value
 abline(v = mean_abund_nm_random, col = "blue", lwd = 2, lty = 2)  # Mean estimate
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+
+###############################################################################
 ## --- Abundance Estimates (Yes mismatch, No movement) ---
 hist(chapman_df_ym_none$Nhat, breaks = 20,
      main = "Chapman Estimator (Yes mismatch, No movement)",
@@ -170,21 +195,71 @@ abline(v = 210, col = "red", lwd = 2)
 abline(v = mean_abund_ym_none, col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
-
-## --- Density Estimates (Yes mismatch, Avoidant Movement) ---
-hist(chapman_df_ym_avoid$Nhat / 6, breaks = 20,
+## --- Abundance Estimates (Yes mismatch, Avoidant movement) ---
+hist(chapman_df_ym_avoid$Nhat, breaks = 20,
+     main = "Chapman Estimator (Yes mismatch, Avoid movement)",
+     xlab = "Abundance Estimate", col = "lightgray", border = "white")
+abline(v = 210, col = "red", lwd = 2)
+abline(v = mean_abund_ym_avoid, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Abundance", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+## --- Abundance Estimates (Yes mismatch, Random movement) ---
+hist(chapman_df_ym_random$Nhat, breaks = 20,
+     main = "Chapman Estimator (Yes mismatch, Random movement)",
+     xlab = "Abundance Estimate", col = "lightgray", border = "white")
+abline(v = 210, col = "red", lwd = 2)
+abline(v = mean_abund_ym_random, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Abundance", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+###############################################################################
+##########################   DENSITY ##########################################
+###############################################################################
+## --- Density Estimates (No mismatch, No movement) ---
+hist(chapman_df_nm_none$density, breaks = 20,
+     main = "Density Estimate (No mismatch, No movement)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_nm_none, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+## --- Density Estimates (No mismatch, Avoidant movement) ---
+hist(chapman_df_nm_avoid$density, breaks = 20,
+     main = "Density Estimate (No mismatch, Avoidant movement)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_nm_avoid, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+## --- Density Estimates (No mismatch, Random movement) ---
+hist(chapman_df_nm_random$density, breaks = 20,
+     main = "Density Estimate (No mismatch, Random movement)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_nm_random, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+###############################################################################
+## --- Density Estimates (Yes mismatch, No movement) ---
+hist(chapman_df_ym_none$density, breaks = 20,
+     main = "Density Estimate (Yes mismatch, No movement)",
+     xlab = "Density Estimate", col = "lightgray", border = "white")
+abline(v = 35, col = "red", lwd = 2)
+abline(v = mean_density_ym_none, col = "blue", lwd = 2, lty = 2)
+legend("topright", legend = c("True Density", "Mean Estimate"),
+       col = c("red", "blue"), lty = c(1, 2), lwd = 2)
+## --- Density Estimates (Yes mismatch, Avoidant movement) ---
+hist(chapman_df_ym_avoid$density, breaks = 20,
      main = "Density Estimate (Yes mismatch, Avoidant movement)",
      xlab = "Density Estimate", col = "lightgray", border = "white")
 abline(v = 35, col = "red", lwd = 2)
 abline(v = mean_density_ym_avoid, col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Density", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
-
 ## --- Density Estimates (Yes mismatch, Random movement) ---
-hist(chapman_df_ym_ym$Nhat / 6, breaks = 20,
-     main = "Density Estimate (Movement,Mismatch)",
+hist(chapman_df_ym_random$density, breaks = 20,
+     main = "Density Estimate (Yes mismatch, Random movement)",
      xlab = "Density Estimate", col = "lightgray", border = "white")
 abline(v = 35, col = "red", lwd = 2)
-abline(v = mean_density_ym_ym, col = "blue", lwd = 2, lty = 2)
+abline(v = mean_density_ym_random, col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Density", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)

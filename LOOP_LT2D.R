@@ -47,7 +47,7 @@ for(i in 1:100){
 }
 
 ## Build plots
-par(mfrow=c(1,1))
+par(mfrow=c(1,2))
 
 # Density
 mean_density_lt2d <- mean(lt2d_density)
@@ -69,7 +69,3 @@ abline(v = 210, col = "red", lwd = 2)
 abline(v = mean_abund_lt2d , col = "blue", lwd = 2, lty = 2)
 legend("topright", legend = c("True Abundance", "Mean Estimate"),
        col = c("red", "blue"), lty = c(1, 2), lwd = 2)
-<<<<<<< HEAD
-=======
-
->>>>>>> 7d73a5d45f89a28e922f48484b8c95df9f5333fd

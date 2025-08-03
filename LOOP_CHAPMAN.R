@@ -1,4 +1,6 @@
+################################################################################
 # Make sure to run "mismatch.R" before getting here, if you are testing mismatch
+################################################################################
 # Load packages
 library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
@@ -105,7 +107,6 @@ chapman_ym_none <- replicate(
   n_simulations,
   simulate_chapman(Fit.n.ip0, mismatch = TRUE, move = 2),
   simplify = FALSE)
-chapman_ym_none$density <- chapman_ym_none$Nhat/6
 #########################################################
 # Clean and convert to data.frames
 chapman_df_nm_none <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapman_nm_none)))

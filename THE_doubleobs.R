@@ -96,7 +96,7 @@ chapman.mr <- function(df, mismatch){
   var.N <- (S1+1)*(S2+1)*(S1-B)*(S2-B)/(((B+1)^2)*(B+2))
   d <- exp(1.96*sqrt(log(1+(var.N/(N.hat^2)))))
   lcl <- N.hat/d; ucl <- N.hat*d
-  return(c(N.hat, lcl, ucl))
+  return(c(N.hat, lcl, ucl, S1, S2, B))
 }
 
 chap_F <- chapman.mr(df = for_dobs, mismatch = FALSE)

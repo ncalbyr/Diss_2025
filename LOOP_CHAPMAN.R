@@ -59,6 +59,8 @@ simulate_chapman <- function(Fit.n.ip0, n_animals = 210, area = 100,
   df$detect[abs(df$x) > 0.05] <- 0
   
   # 6. Apply Chapman estimator
+  ## this is referencing the function "chapman.mr" which was built in the file
+  ### "THE_doubleobs.R"
   result <- tryCatch({
     chapman.mr(df = df, mismatch = mismatch)
   }, error = function(e) return(NA))
@@ -124,13 +126,13 @@ chapman_df_ym_random <- as.data.frame(do.call(rbind, Filter(Negate(is.na), chapm
 chapman_df_ym_random$density <- chapman_df_ym_random$V1/6
 #########################################################
 # Name values
-colnames(chapman_df_nm_none) <- c("Nhat", "LCL", "UCL","density")
-colnames(chapman_df_nm_avoid) <- c("Nhat", "LCL", "UCL","density")
-colnames(chapman_df_nm_random) <- c("Nhat", "LCL", "UCL","density")
+colnames(chapman_df_nm_none) <- c("Nhat", "LCL", "UCL", "S1", "S2", "B", "density")
+colnames(chapman_df_nm_avoid) <- c("Nhat", "LCL", "UCL","S1", "S2", "B","density")
+colnames(chapman_df_nm_random) <- c("Nhat", "LCL", "UCL","S1", "S2", "B","density")
 
-colnames(chapman_df_ym_none) <- c("Nhat", "LCL", "UCL","density")
-colnames(chapman_df_ym_avoid) <- c("Nhat", "LCL", "UCL","density")
-colnames(chapman_df_ym_random) <- c("Nhat", "LCL", "UCL","density")
+colnames(chapman_df_ym_none) <- c("Nhat", "LCL", "UCL","S1", "S2", "B","density")
+colnames(chapman_df_ym_avoid) <- c("Nhat", "LCL", "UCL","S1", "S2", "B","density")
+colnames(chapman_df_ym_random) <- c("Nhat", "LCL", "UCL","S1", "S2", "B","density")
 
 #########################################################
 ## Compute ABUNDANCE means

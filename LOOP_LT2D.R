@@ -38,7 +38,7 @@ for(i in 1:100){
                       ystart = 0.05,
                       pi.x = "pi.norm", 
                       logphi = c(lphi1, lphi2), 
-                      w = 0.03, 
+                      w = 0.04, 
                       hessian = TRUE,
                       control = list(trace = 5, maxit = 1000))
   

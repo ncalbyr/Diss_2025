@@ -85,6 +85,7 @@ subset(for_dobs, obs == 1)$y == subset(for_dobs, obs == 2)$y  # Should be all TR
 ##### 6) LOOP SEVERAL TIMES TO PRODUCE DISTRIBUTIONS OF MEAN ESTIMATES
 
 # Double-Observer Estimates of Abundance
+## (sourced from LT2Dcal/inst/report/report.simulation.R)
 chapman.mr <- function(df, mismatch){
   if (mismatch==TRUE){df <- mismatch(df)}
   

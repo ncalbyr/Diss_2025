@@ -10,25 +10,36 @@ data(primate.dat)
 x=primate.dat$x
 y=primate.dat$y
 
-# Look at the data
+########################################################
+# original code #
+library(grid)
+library(gridExtra)
+png(filename = "primate_table.png",
+    height = 480,
+    width = 480)
+grid.table(head(primate.dat))
+dev.off()
 par(mfrow=c(1,1))
-pdlab="Perpendicular distance"
-fdlab="Distance along transect"
-plot(jitter(y,1,0),jitter(x),pch="+",ylab=pdlab,xlab=fdlab,main="")
-abline(h = 0.03, col = "red", lty = 2, lwd = 2)
+hist(x, main = "Perpendicular Distance Distribution",
+     xlab = "Perpendicular Distance")
+abline(v = 0.03, col = "blue", lty = 5, lwd = 3)
 
-hist(y,breaks=seq(0,max(na.omit(y)),length=16),xlab=fdlab,main="")
-abline(v = 0.03, col = "red", lty = 2, lwd = 2)
+hist(y, main = "Forward Distance Distribution",
+     xlab = "Forward Distance")
+abline(v = 0.03, col = "red", lty = 5, lwd = 3)
 
-hist(x,breaks=seq(0,max(na.omit(x)),length=12),xlab=pdlab,main="")
-abline(v = 0.03, col = "red", lty = 2, lwd = 2)
-
+plot(primate.dat, main = "Initial Primate Locations",
+     xlab = "Perpendicular Distance",
+     ylab = "Forward Distance")
+abline(h = 0.05, col = "red", lty = 5, lwd = 3)
+abline(v = 0.03, col = "blue", lty = 5, lwd = 3)
+########################################################
 # Fit the model
 # Normal bump with ip0 hazard function (SELECTED MODEL in paper):
 ystart = 0.05 # forward distance beyond which it is IMPOSSIBLE to observe
 b=c(5, 8)
 logphi=c(0.02, -4.4)
-w=0.03 # this is what is used in the paper
+w=0.04 # this is what is used in the paper
 fit.n.ip0=fityx(y[x<=w],x[x<=w],b=b,hr="ip0",ystart=ystart,
                 pi.x="pi.norm",logphi=logphi,w=w,hessian=TRUE,control=list(trace=5,maxit=1000))
 
@@ -91,3 +102,15 @@ names(Fit.n.ip0$fit)
 Fit.n.ip0$fit$par
 Fit.n.ip0$fit$pi.x
 summary(Fit.n.ip0$fit)
+
+png(filename = "real_lt2d_fit_ests.png", width = 700, height = 100)
+grid.table(Fit.n.ip0$ests)
+dev.off()
+# Make a .png of the parameters
+parameter_names <- c("beta1","beta2","lphi1","lphi2")
+parameter_frame <- data.frame(row.names = parameter_names,
+           value = Fit.n.ip0$fit$par)
+png(filename = "real_parameters.png",
+    width = 200, height = 150)
+grid.table(parameter_frame)
+dev.off()

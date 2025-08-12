@@ -33,15 +33,15 @@ move.data <- function(df, move = 0, keep_angle = FALSE) {
     angleright <- rwrappedcauchy(n - nleft, mu = circular(0), rho = 0.9)
     df$angle[df$x > 0] <- as.numeric(angleright)
     
-    # Distance depends on distance from center
-    dist <- (max(abs(df$x)) - abs(df$x)) * runif(n, 0, 0.1) * 2.5
+    # Distance depends on distance from center (See Sert & Kardiyen 2023; adds noise; adjusts noise)
+    dist <- (max(abs(df$x)) - abs(df$x)) * runif(n, 0, 0.001) * 2.5 # How much noise is appropriate? (0.1 or 0.001)
     
   } else if (move == 1) {
     # Random movement
     angle1 <- rwrappedcauchy(n, mu = circular(0), rho = 0)
     df$angle <- as.numeric(angle1)
     
-    dist <- rlnorm(n, log(0.01), 0.001) # (n, meanlog, sdlog)
+    dist <- rlnorm(n, log(0.02), 0.001) # (n, meanlog, sdlog)
     
   } else if (move == 2) {
     # no movement

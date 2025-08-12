@@ -55,26 +55,31 @@ new.df = data.frame(stratum=rep(1,n), transect=rep(1,n), object=1:n,
                         x=detected_xy$x, y=detected_xy$y)
 
 # Try fitting:
-Fit.new = LT2D.fit(new.df,b=c(beta1,beta2),hr="ip0",ystart=0.05,
-                   pi.x="pi.norm",logphi=c(lphi1,lphi2),w=0.03,hessian=TRUE,
+Fit.new_single = LT2D.fit(new.df,b=c(beta1,beta2),hr="ip0",ystart=0.05,
+                   pi.x="pi.norm",logphi=c(lphi1,lphi2),w=0.04,hessian=TRUE,
                    control=list(trace=5,maxit=1000)) # adjust max. iterations as necessary
-Fit.new$fit$par
+Fit.new_single$fit$par
 
 # Plot GoF and print Go0F ststistics
 openGraph(h=4,w=9)
 par(mfrow=c(1,2))
-gof.ip0 = gof.LT2D(fit.n.ip0,plot=TRUE)
+gof.ip0 = gof.LT2D(Fit.new_single,plot=TRUE)
 gof.ip0
 
 # Plot fits
 openGraph(h=4,w=9)
 par(mfrow=c(1,2))
-plot(Fit.new,smooth.fy=TRUE)
+plot(Fit.new_single,smooth.fy=TRUE)
 
 # Look at abundance estimates
-Fit.new$ests
-names(Fit.new)
-names(Fit.new$fit)
-Fit.new$fit$par
-Fit.new$fit$pi.x
-summary(Fit.new$fit)
+Fit.new_single$ests
+names(Fit.new_single)
+names(Fit.new_single$fit)
+Fit.new_single$fit$par
+Fit.new_single$fit$pi.x
+summary(Fit.new_single$fit)
+
+# .png of estimates
+png(filename = "lt2d_single_estimate.png", width = 700, height = 100)
+grid.table(Fit.new_single$ests)
+dev.off()

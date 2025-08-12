@@ -2,15 +2,15 @@ library(devtools)
 install_github("david-borchers/LT2Dcal",force=TRUE)
 library('LT2D')
 ###
-library(spatstat)
 library(ggplot2)
-library(truncnorm)
 library(grid)
 library(gridExtra)
 library(circular)
+library(ggplot2)
+library(spatstat)
+library(truncnorm)
 library(fields)
 library(dplyr)
-library(ggplot2)
 
 ##### 1) SIMULATE 210 ANIMALS
 # (from perpendicular distribution of "primate.dat")
@@ -43,6 +43,10 @@ detected_xy <- detect2DLT(x = x_set, hr = "ip0", b = c(beta1,beta2),
                           ystart = 0.05, ny = 1000,
                           getIDs = T)
 head(detected_xy)
+png(filename = "detected_xy.png",
+    width = 500, height = 500)
+grid.table(head(detected_xy))
+dev.off()
 ##### 4) MOVE X&Y's TO X2&Y2's (Add them back into the fitted object?)
 ##### 5) USE DETECTION FUNCTION ON NEW LOCATIONS
 # Build function
@@ -79,8 +83,11 @@ detect.data <- function(sigma) {
 for_dobs <- detect.data(sigma = 0.2)
 head(for_dobs)
 
-subset(for_dobs, obs == 1)$x == subset(for_dobs, obs == 2)$x  # Should be all TRUE
-subset(for_dobs, obs == 1)$y == subset(for_dobs, obs == 2)$y  # Should be all TRUE
+# Make an image of this table for the report
+png(filename = "two_occasion_detected.png",
+    width = 480, height = 480)
+grid.table(head(for_dobs))
+dev.off()
 
 ##### 6) LOOP SEVERAL TIMES TO PRODUCE DISTRIBUTIONS OF MEAN ESTIMATES
 

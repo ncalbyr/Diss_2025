@@ -1,5 +1,5 @@
 # Dissertation2025
-A repository for all the code I'm using to complete the dissertation.
+A repository for original code in this dissertation. See also "david-borchers/LT2Dcal" repository for the referenced "LT2D" R-package and all associated functions and code tied to it.
 
 1) Fitting x-y primate data to a 2-Dimensional Distance Sampling survey.
 2) Building movement function to describe change in primate positions between occasion/observer 1 and occasion/observer 2
